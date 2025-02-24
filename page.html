@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gommages Naturels</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pageproduit.css">
+ 
+</head>
+<body>
+  <div class="navbar">
+     <div class="navbar-img">
+          <img src="logo.png" alt="">
+     </div>
+     <div class="div-lien">
+          <a href="#">Accueil</a>
+          <a href="#contact">Contact</a>
+     </div>
+    
+  </div>
+
+  <header>
+       <h1>Gommages Naturels</h1>
+       <p> offrer a votre peau le soin qu'elle<br> <span> merite avec nos gommages naturels </span></p>
+  </header>
+
+  <div class="container">
+    <!-- Produit 1 -->
+    <div class="product">
+      <img src="produit1.png" alt="Gommage Exfoliant" class="imag-gommage">
+      <div class="product-content">
+        <h2>Gommage curcuma</h2>
+        <p>Un gommage curcuma naturel pour une peau douce et éclatante.</p>
+        <p><strong>Prix : 3000 FCFA</strong></p>
+        <div class="order">
+          <input type="number" id="qty-Gommage-Exfoliant" value="1" min="1">
+          <button onclick="showModal('Gommage curcuma', 3000)">Commander</button>
+        </div>
+      </div>
+    </div>
+    <!-- Produit 2 -->
+    <div class="product">
+      <img src="produit2.png" alt="Gommage Hydratant"class="imag-gommage-dableni">
+      <div class="product-content">
+        <h2>Gommage cafe</h2>
+        <p>Hydrate et nourrit la peau pour un teint lumineux.</p>
+        <p><strong>Prix : 3000 FCFA</strong></p>
+        <div class="order">
+          <input type="number" id="qty-Gommage-Hydratant" value="1" min="1">
+          <button onclick="showModal('Gommage cafe', 3000)">Commander</button>
+        </div>
+      </div>
+    </div>
+    <!-- Produit 3 -->
+    <div class="product">
+      <img src="produit3.png" alt="Gommage Revitalisant" class="imag-gommage">
+      <div class="product-content">
+        <h2>Gommage Bissap</h2>
+        <p>Revitalise et dynamise votre peau en douceur.</p>
+        <p><strong>Prix : 3000 FCFA</strong></p>
+        <div class="order">
+          <input type="number" id="qty-Gommage-Revitalisant" value="1" min="1">
+          <button onclick="showModal('Gommage Bissap', 3000)">Commander</button>
+        </div>
+      </div>
+    </div>
+    <div class="product">
+      <img src="produit4.png" alt="Gommage Revitalisant" class="savon-marocain">
+      <div class="product-content">
+        <h2>savon marocain melange du miel pur bio</h2>
+        <p>un savon qui elimine les taches,les boutons et dynamise votre peau en douceur.</p>
+        <p><strong>Prix : 5000 FCFA</strong></p>
+        <div class="order">
+          <input type="number" id="qty-Gommage-Revitalisant" value="1" min="1">
+          <button onclick="showModal('savon marocain melange du miel pur bio', 5000)">Commander</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fenêtre modale de confirmation -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <h3>Confirmer votre commande</h3>
+      <p>Produit : <span id="modal-product-name"></span></p>
+      <p>Quantité : <span id="modal-quantity"></span></p>
+      <p>Total : <span id="modal-total"></span> FCFA</p>
+      <button class="confirm" id="modal-confirm" onclick="confirmOrder()">Confirmer</button>
+      <button class="cancel" onclick="hideModal()">Annuler</button>
+    </div>
+  </div>
+
+  <div class="footer">
+     <p> &2025 Gommages Naturels. Tous droits réservés.</p>
+     <div class="div-contact">
+          <p>oumardjibrlla18@gmail.com</p>
+          <p>+212 774454921</p>
+     </div>
+   
+  </div>
+  <script>
+    function showModal(productName, price) {
+      let inputId = 'qty-' + productName.replace(/ /g, '-');
+      let quantityInput = document.getElementById(inputId);
+      let quantity = quantityInput ? quantityInput.value : 1;
+      document.getElementById('modal-product-name').textContent = productName;
+      document.getElementById('modal-quantity').textContent = quantity;
+      document.getElementById('modal-total').textContent = price * quantity;
+      document.getElementById('modal-confirm').setAttribute('data-product', productName);
+      document.getElementById('modal-confirm').setAttribute('data-price', price);
+      document.getElementById('modal-confirm').setAttribute('data-quantity', quantity);
+      document.getElementById('orderModal').style.display = 'block';
+    }
+    function hideModal() {
+      document.getElementById('orderModal').style.display = 'none';
+    }
+    function confirmOrder() {
+      let productName = document.getElementById('modal-confirm').getAttribute('data-product');
+      let price = document.getElementById('modal-confirm').getAttribute('data-price');
+      let quantity = document.getElementById('modal-confirm').getAttribute('data-quantity');
+      let total = price * quantity;
+      let message =' Bonjour, je voudrais commander ${quantity} x ${productName} pour un total de ${total} FCFA.';
+      let url = `https://wa.me/22383615771?text=Bonjour, votre ${productName} m’intéresse ! Je souhaite en commander ${quantity} pour un total de ${total} FCFA. Merci de me donner plus de détails sur la livraison.`;
+      // Remplace avec ton numéro WhatsApp
+      window.open(url, '_blank');
+      hideModal();
+    }
+    window.onclick = function(event) {
+      let modal = document.getElementById('orderModal');
+      if (event.target == modal) {
+        hideModal();
+      }
+    }
+  </script>
+</body>
+</html>
